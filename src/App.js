@@ -3,9 +3,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Mapa from './components/Mapa/Mapa'
 import Home from './components/Home/Home'
+import Mobile from './components/Mobile/Mobile'
 import React, { useState, useEffect } from 'react'
+import { useMediaQuery } from 'react-responsive'
 
 function App() {
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1224px)'
+  })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+
   const [placesRecords, setplacesRecords] = useState([])
   const [categoryRecords, setcategoryRecords] = useState([])
   const [checked, setChecked] = React.useState([])
@@ -58,22 +65,28 @@ function App() {
       },
     },
   })
-
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <div className="app">
           <Switch>
             <Route path="/map">
-              <Mapa checked={checked} placesRecords={placesRecords} />
+            <Mapa checked={checked} placesRecords={placesRecords} />
             </Route>
             <Route path="/">
-              <Home
+            {isDesktopOrLaptop && <Home
                 checked={checked}
                 setChecked={setChecked}
                 categoryRecords={categoryRecords}
                 placesRecords={placesRecords}
-              />
+              />}
+              {isTabletOrMobile && <Mobile
+                checked={checked}
+                setChecked={setChecked}
+                categoryRecords={categoryRecords}
+                placesRecords={placesRecords}
+              />}
+              
             </Route>
           </Switch>
         </div>

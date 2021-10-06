@@ -56,9 +56,10 @@ const Home = (props) => {
             component="h4"
             style={{
               display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: 'left',
+              alignItems: 'left',
               marginBottom: 10,
+              marginLeft: 12
             }}
           >
             Productores de Salto
@@ -103,7 +104,7 @@ const Home = (props) => {
             </Typography>
             <FixedSizeList
               height={440}
-              width={180}
+              width={170}
               itemSize={46}
               itemCount={props.categoryRecords.length}
             >
