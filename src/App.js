@@ -37,22 +37,24 @@ function App() {
         setChecked(localStoragecategoryRecords)
       }
     }
-  }, [])
-  useEffect(() => {
-    fetch('https://shadow.devilskykid.com/Salto/places.php')
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(JSON.stringify(result))
-        setplacesRecords(result)
-        localStorage.setItem('placesRecords', JSON.stringify(result))
-      })
-    fetch('https://shadow.devilskykid.com/Salto/category.php')
-      .then((res) => res.json())
-      .then((result) => {
-        console.log(JSON.stringify(result))
-        setcategoryRecords(result)
-        localStorage.setItem('categoryRecords', JSON.stringify(result))
-      })
+      fetch('https://shadow.devilskykid.com/Salto/places.php')
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(JSON.stringify(result))
+          setplacesRecords(result)
+          localStorage.setItem('placesRecords', JSON.stringify(result))
+        })
+      fetch('https://shadow.devilskykid.com/Salto/category.php')
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(JSON.stringify(result))
+          setcategoryRecords(result)
+          localStorage.setItem('categoryRecords', JSON.stringify(result))
+          if (categorychecked) {}
+          else{
+            setChecked(localStoragecategoryRecords)
+          } 
+        })
   }, [])
   const theme = createTheme({
     palette: {

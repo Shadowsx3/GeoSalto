@@ -1,5 +1,6 @@
 import React from 'react'
 import { Marker, Popup } from 'react-leaflet'
+import Dialogo from '../Dialogo/Dialogo'
 //rfce
 const Marcador = (props) => {
   return (
@@ -8,7 +9,7 @@ const Marcador = (props) => {
         if (props.checked.includes(d.categoria)) {
           return (
             <Marker position={[d.x, d.y]} key={d.nombre}>
-              <Popup>{d.nombre}</Popup>
+              <Popup><Dialogo d={d}/></Popup>
             </Marker>
           )
         }
