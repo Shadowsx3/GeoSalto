@@ -25,6 +25,10 @@ function App() {
     }
     if (categorychecked) {
       setChecked(categorychecked)
+    } else {
+      if (localStoragecategoryRecords) {
+        setChecked(localStoragecategoryRecords)
+      }
     }
   }, [])
   useEffect(() => {
