@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {
   Typography,
   Grid,
@@ -9,7 +9,6 @@ import {
   ListItemButton,
   ListItemIcon,
   Checkbox,
-  ListItem,
 } from '@mui/material'
 import Mapa from '../Mapa/Mapa'
 import { useHistory } from 'react-router-dom'
@@ -43,10 +42,7 @@ const Home = (props) => {
             disableRipple
           />
         </ListItemIcon>
-        <ListItemText
-          id={'ListItemText-${category[value]}'}
-          primary={props.categoryRecords[index]}
-        />
+        <ListItemText primary={props.categoryRecords[index]} />
       </ListItemButton>
     </div>
   )
@@ -124,7 +120,7 @@ const Home = (props) => {
               border: '2px dashed black',
             }}
           >
-            <Mapa checked={props.checked} />
+            <Mapa checked={props.checked} placesRecords={props.placesRecords} />
           </Paper>
         </Grid>
       </Grid>

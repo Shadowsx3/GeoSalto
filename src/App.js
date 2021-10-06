@@ -61,13 +61,14 @@ function App() {
         <div className="app">
           <Switch>
             <Route path="/map">
-              <Mapa checked={checked} />
+              <Mapa checked={checked} placesRecords={placesRecords} />
             </Route>
             <Route path="/">
               <Home
                 checked={checked}
                 setChecked={setChecked}
                 categoryRecords={categoryRecords}
+                placesRecords={placesRecords}
               />
             </Route>
           </Switch>
