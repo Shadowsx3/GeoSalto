@@ -23,22 +23,25 @@ const Mobile = (props) => {
               marginLeft: 12
             }}
           >
-            Productores de Salto
+            Localidades Artesanales Salto
           </Typography>
       <Divider variant="middle" style={{ marginBottom: 2 }} />
       <Paper
         sx={{
           p: 1,
           height: '5%',
+          width: '95%',
           background: '#cfe1b9',
         }}
       >
           <Opci props={props}/>
           </Paper>
+          <Divider variant="middle" style={{ marginBottom: 10 }} />
           <Paper
         sx={{
           p: 1,
           height: '80%',
+          width: '95%',
           background: '#cfe1b9',
         }}
       >

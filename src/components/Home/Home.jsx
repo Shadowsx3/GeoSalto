@@ -8,9 +8,10 @@ import {
   ListItemText,
   ListItemButton,
   ListItemIcon,
-  Checkbox,
+  Checkbox,Box
 } from '@mui/material'
 import Mapa from '../Mapa/Mapa'
+import Clima from '../Clima/Clima'
 import { useHistory } from 'react-router-dom'
 import { FixedSizeList } from 'react-window'
 import './Home.scss'
@@ -50,7 +51,7 @@ const Home = (props) => {
     <div className="home">
       <Divider variant="middle" style={{ marginBottom: 10 }} />
       <Grid container spacing={2}>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <Typography
             variant="h4"
             component="h4"
@@ -62,8 +63,13 @@ const Home = (props) => {
               marginLeft: 12
             }}
           >
-            Productores de Salto
+            Localidades Artesanales Salto
           </Typography>
+          
+         
+        </Grid>
+        <Grid item xs={2}>
+        <Clima/>
         </Grid>
         <Grid item xs={2}>
           <Button
@@ -90,7 +96,11 @@ const Home = (props) => {
               height: '100%',
               background: '#cfe1b9',
             }}
-          >
+          ><Box
+          sx={{
+            bgcolor: '#97a97c'
+          }}
+        >
             <Typography
               variant="h6"
               component="h6"
@@ -102,6 +112,7 @@ const Home = (props) => {
             >
               Categorias
             </Typography>
+            </Box>
             <FixedSizeList
               height={440}
               width={170}
