@@ -1,34 +1,34 @@
-import React from 'react'
+import React, { useState } from "react";
 import {
   Typography,
   Grid,
   Divider,
   Paper,
-  Button,
   ListItemText,
   ListItemButton,
   ListItemIcon,
-  Checkbox,Box
-} from '@mui/material'
-import Mapa from '../Mapa/Mapa'
-import Clima from '../Clima/Clima'
-import { useHistory } from 'react-router-dom'
-import { FixedSizeList } from 'react-window'
-import './Home.scss'
+  Checkbox,
+  Button,
+} from "@mui/material";
+import Mapa from "../Mapa/Mapa";
+import Clima from "../Clima/Clima";
+import Logueo from "../Logueo/Logueo";
+import { FixedSizeList } from "react-window";
+import "./Home.scss";
 
 const Home = (props) => {
-  let history = useHistory()
+  const [edit, setEdit] = useState(false);
   const handleToggle = (value) => () => {
-    const currentIndex = props.checked.indexOf(value)
-    const newChecked = [...props.checked]
+    const currentIndex = props.checked.indexOf(value);
+    const newChecked = [...props.checked];
     if (currentIndex === -1) {
-      newChecked.push(value)
+      newChecked.push(value);
     } else {
-      newChecked.splice(currentIndex, 1)
+      newChecked.splice(currentIndex, 1);
     }
-    localStorage.setItem('categorychecked', JSON.stringify(newChecked))
-    props.setChecked(newChecked)
-  }
+    localStorage.setItem("categorychecked", JSON.stringify(newChecked));
+    props.setChecked(newChecked);
+  };
   const Row = ({ index, style }) => (
     <div style={style}>
       <ListItemButton
@@ -46,46 +46,60 @@ const Home = (props) => {
         <ListItemText primary={props.categoryRecords[index]} />
       </ListItemButton>
     </div>
-  )
+  );
   return (
     <div className="home">
       <Divider variant="middle" style={{ marginBottom: 10 }} />
       <Grid container spacing={2}>
-        <Grid item xs={8}>
+        <Grid item xs={6}>
           <Typography
             variant="h4"
             component="h4"
             style={{
-              display: 'flex',
-              justifyContent: 'left',
-              alignItems: 'left',
+              display: "flex",
+              justifyContent: "left",
+              alignItems: "left",
               marginBottom: 10,
-              marginLeft: 12
+              marginLeft: 12,
             }}
           >
             Localidades Artesanales Salto
           </Typography>
-          
-         
         </Grid>
         <Grid item xs={2}>
-        <Clima/>
+          {props.logued ? (
+            <Button
+              onClick={() => {
+                setEdit(!edit);
+                console.log(edit);
+              }}
+              variant="contained"
+              sx={
+                !edit
+                  ? { background: "#97a97c", width: "100%" }
+                  : { width: "100%" }
+              }
+            >
+              Modo edición
+            </Button>
+          ) : (
+            ""
+          )}
         </Grid>
         <Grid item xs={2}>
-          <Button
-            variant="contained"
-            sx={{ background: '#97a97c' }}
-            onClick={() => {
-              history.push('/map')
-            }}
-          >
-            Pantalla completa
-          </Button>
+          <Clima />
+        </Grid>
+        <Grid item xs={2}>
+          <Logueo
+            logued={props.logued}
+            setLogued={props.setLogued}
+            setEdit={setEdit}
+          />
         </Grid>
       </Grid>
       <Divider variant="middle" style={{ marginBottom: 2 }} />
       <Grid
-        sx={{ p: 2, flexGrow: 1, width: '100%', height: '85%' }}
+        sx={{ p: 2, flexGrow: 1, width: "100%", height: "85%" }}
         container
         spacing={2}
       >
@@ -93,26 +107,22 @@ const Home = (props) => {
           <Paper
             sx={{
               p: 2,
-              height: '100%',
-              background: '#cfe1b9',
+              height: "100%",
+              background: "#cfe1b9",
             }}
-          ><Box
-          sx={{
-            bgcolor: '#97a97c'
-          }}
-        >
+          >
             <Typography
               variant="h6"
               component="h6"
               style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               Categorias
             </Typography>
-            </Box>
+            <Divider variant="middle" style={{ marginBottom: "0.5%" }} />
             <FixedSizeList
               height={440}
               width={170}
@@ -127,16 +137,21 @@ const Home = (props) => {
           <Paper
             sx={{
               p: 2,
-              height: '100%',
-              background: '#cfe1b9',
-              border: '2px dashed black',
+              height: "100%",
+              background: "#cfe1b9",
+              border: "2px dashed black",
             }}
           >
-            <Mapa checked={props.checked} placesRecords={props.placesRecords} />
+            <Mapa
+              checked={props.checked}
+              placesRecords={props.placesRecords}
+              setplacesRecords={props.setplacesRecords}
+              edit={edit}
+            />
           </Paper>
         </Grid>
       </Grid>
     </div>
-  )
-}
-export default Home
+  );
+};
+export default Home;
