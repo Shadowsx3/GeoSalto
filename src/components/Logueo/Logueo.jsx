@@ -70,7 +70,10 @@ const Logueo = (props) => {
       hasEmptyPasswordError = true;
       emptyPasswordErrorMessage = "El campo no puede ser vacío";
     }
-    if (userNameValue.trim() !== "admin" || passwordValue.trim() !== "admin") {
+    if (
+      userNameValue.trim() !== "admin" ||
+      passwordValue.trim() !== "noadmin"
+    ) {
       wrongCredentialesError = true;
     }
     const hasErrors =
