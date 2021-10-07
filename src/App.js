@@ -15,7 +15,7 @@ function App() {
 
   const [placesRecords, setplacesRecords] = useState([]);
   const [categoryRecords, setcategoryRecords] = useState([]);
-  const [checked, setChecked] = React.useState([]);
+  const [checked, setChecked] = useState([]);
   const [logued, setLogued] = React.useState(false);
   useEffect(() => {
     const localStorageplacesRecords = JSON.parse(
@@ -54,7 +54,7 @@ function App() {
         if (categorychecked) {
         } else {
           setChecked(result);
-          localStorage.setItem("categorychecked", JSON.stringify(checked));
+          localStorage.setItem("categorychecked", JSON.stringify(result));
         }
       });
   }, []);
