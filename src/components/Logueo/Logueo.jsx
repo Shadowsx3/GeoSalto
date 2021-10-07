@@ -8,7 +8,7 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 
 const Logueo = (props) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     if (props.logued) {

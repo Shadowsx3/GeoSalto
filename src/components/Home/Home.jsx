@@ -143,9 +143,11 @@ const Home = (props) => {
             }}
           >
             <Mapa
+              logued={props.logued}
               checked={props.checked}
               placesRecords={props.placesRecords}
               setplacesRecords={props.setplacesRecords}
+              categoryRecords={props.categoryRecords}
               edit={edit}
             />
           </Paper>

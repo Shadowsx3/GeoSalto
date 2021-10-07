@@ -6,146 +6,111 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
+import Categoria from "./Categoria";
 
 const Adding = (props) => {
   const [open, setOpen] = React.useState(false);
-
+  const [credentialsError, setCredentialsError] = useState(false);
+  const [selectedValue, setSelectedValue] = React.useState(
+    props.categoryRecords[1]
+  );
   const handleClickOpen = () => {
-    if (props.logued) {
-      props.setLogued(false);
-    } else {
-      setOpen(true);
-    }
+    setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
   const [formFields, setFormFields] = useState({
-    userName: {
-      value: "",
-      error: false,
-      errorText: "",
-    },
-    password: {
-      value: "",
-      error: false,
-      errorText: "",
-    },
+    Name: "",
+    Descripcion: "",
   });
-  const [credentialsError, setCredentialsError] = useState(false);
 
   const handleFormFields = (e) => {
     setFormFields({
       ...formFields,
-      [e.target.id]: {
-        value: e.target.value,
-        error: false,
-        errorText: "",
-      },
+      [e.target.id]: e.target.value,
     });
-    setCredentialsError(false);
   };
 
   const submitLogin = (e) => {
     e.preventDefault();
-    const {
-      userName: { value: userNameValue },
-      password: { value: passwordValue },
-    } = formFields;
+    const { Name: NameValue, Descripcion: DescripcionValue } = formFields;
+    let hasEmptyNameError = false;
+    let hasEmptyDescripcionError = false;
 
-    let hasEmptyUserNameError = false;
-    let hasEmptyPasswordError = false;
-    let wrongCredentialesError = false;
-
-    let emptyUserNameErrorMessage = "";
-    let emptyPasswordErrorMessage = "";
-
-    if (userNameValue.trim() === "") {
-      hasEmptyUserNameError = true;
-      emptyUserNameErrorMessage = "El campo no puede ser vacío";
+    if (NameValue.trim() === "") {
+      hasEmptyNameError = true;
     }
-    if (passwordValue.trim() === "") {
-      hasEmptyPasswordError = true;
-      emptyPasswordErrorMessage = "El campo no puede ser vacío";
+    if (DescripcionValue.trim() === "") {
+      hasEmptyDescripcionError = true;
     }
-    if (userNameValue.trim() !== "admin" || passwordValue.trim() !== "admin") {
-      wrongCredentialesError = true;
-    }
-    const hasErrors =
-      wrongCredentialesError || hasEmptyUserNameError || hasEmptyPasswordError;
+    const hasErrors = hasEmptyNameError || hasEmptyDescripcionError;
 
     if (hasErrors) {
       setFormFields({
-        userName: {
-          ...formFields.userName,
-          error: hasEmptyUserNameError,
-          errorText: emptyUserNameErrorMessage,
-        },
-        password: {
-          ...formFields.password,
-          error: hasEmptyPasswordError,
-          errorText: emptyPasswordErrorMessage,
-        },
+        Name: formFields.Name,
+        Descripcion: formFields.Descripcion,
       });
-      setCredentialsError(wrongCredentialesError);
+      setCredentialsError(true);
     } else {
+      const nuevo = {
+        x: props.lugar.x,
+        y: props.lugar.y,
+        nombre: formFields.Name,
+        descripcion: formFields.Descripcion,
+        link: "",
+        categoria: selectedValue,
+      };
+      fetch("https://shadow.devilskykid.com/Salto/add.php", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+        },
+        body: JSON.stringify(nuevo),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(JSON.stringify(result));
+          props.setplacesRecords(result);
+          localStorage.setItem("placesRecords", JSON.stringify(result));
+        });
       handleClose();
-      props.setLogued(true);
+      //props.lugar;
     }
   };
-
-  const {
-    userName: {
-      value: userNameValue,
-      error: userNameError,
-      errorText: userNameErrorText,
-    },
-    password: {
-      value: passwordValue,
-      error: passwordError,
-      errorText: passwordErrorText,
-    },
-  } = formFields;
+  const { Name: NameValue, Descripcion: DescripcionValue } = formFields;
 
   return (
     <div>
-      <Button
-        onClick={handleClickOpen}
-        variant="contained"
-        sx={{ m: "1", background: "#97a97c", width: "85%" }}
-      >
-        {props.logued ? "Logout" : "Login"}
+      <Button onClick={handleClickOpen} variant="text">
+        Agregar
       </Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
-        <DialogTitle sx={{ backgroundColor: "#e9f5db" }}>Login</DialogTitle>
+        <DialogTitle sx={{ backgroundColor: "#e9f5db" }}>Local</DialogTitle>
         <DialogContent sx={{ backgroundColor: "#e9f5db" }}>
           <Paper elevation={3}>
             <Box sx={{ p: 2, backgroundColor: "#e9f5db" }}>
-              <div className="login__form">
+              <div className="add__form">
                 <div>
                   <TextField
-                    id="userName"
-                    label="Usuario"
+                    id="Name"
+                    label="Nombre"
                     color="primary"
                     variant="standard"
-                    value={userNameValue}
-                    error={userNameError}
-                    helperText={userNameErrorText}
+                    value={NameValue}
                     required
                     onChange={handleFormFields}
                   />
                 </div>
                 <div>
                   <TextField
-                    id="password"
-                    label="Contraseña"
-                    type="password"
+                    id="Descripcion"
+                    label="Descripcion"
+                    type="text"
                     color="primary"
                     variant="standard"
-                    value={passwordValue}
-                    error={passwordError}
-                    helperText={passwordErrorText}
+                    value={DescripcionValue}
                     required
                     onChange={handleFormFields}
                     onKeyPress={(event) => {
@@ -153,6 +118,11 @@ const Adding = (props) => {
                         submitLogin(event);
                       }
                     }}
+                  />
+                  <Categoria
+                    categoryRecords={props.categoryRecords}
+                    selectedValue={selectedValue}
+                    setSelectedValue={setSelectedValue}
                   />
                 </div>
                 <div className="login__button">
@@ -162,13 +132,13 @@ const Adding = (props) => {
                     fullWidth
                     sx={{ backgroundColor: "#97a97c" }}
                   >
-                    Ingresar
+                    Añadir
                   </Button>
                 </div>
                 <div className="login__invalid-credentials">
                   {credentialsError && (
                     <>
-                      <div>Credenciales inválidas.</div>
+                      <div>Ingrese ambos campos.</div>
                     </>
                   )}
                 </div>

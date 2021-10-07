@@ -38,7 +38,7 @@ function App() {
         setChecked(localStoragecategoryRecords);
       }
     }
-    /*fetch("https://shadow.devilskykid.com/Salto/places.php")
+    fetch("https://shadow.devilskykid.com/Salto/places.php")
       .then((res) => res.json())
       .then((result) => {
         console.log(JSON.stringify(result));
@@ -55,7 +55,7 @@ function App() {
         } else {
           setChecked(localStoragecategoryRecords);
         }
-      });*/
+      });
   }, []);
   const theme = createTheme({
     palette: {
