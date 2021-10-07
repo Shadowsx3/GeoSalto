@@ -53,7 +53,8 @@ function App() {
         localStorage.setItem("categoryRecords", JSON.stringify(result));
         if (categorychecked) {
         } else {
-          setChecked(localStoragecategoryRecords);
+          setChecked(result);
+          localStorage.setItem("categorychecked", JSON.stringify(checked));
         }
       });
   }, []);
