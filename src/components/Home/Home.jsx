@@ -38,11 +38,7 @@ const Home = (props) => {
         <ListItemIcon>
           <Checkbox
             edge="start"
-            checked={
-              props.checked !== null
-                ? props.checked.indexOf(props.categoryRecords[index]) !== -1
-                : true
-            }
+            checked={props.checked.indexOf(props.categoryRecords[index]) !== -1}
             tabIndex={-1}
             disableRipple
           />

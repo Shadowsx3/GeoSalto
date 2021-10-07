@@ -24,19 +24,6 @@ const Marcador = (props) => {
     <div className="marcador">
       {!props.edit ? (
         props.placesRecords.map((d, i) => {
-          if (props.checked === null) {
-            return (
-              <Marker position={[d.x, d.y]} key={d.nombre + i}>
-                <Popup>
-                  <Dialogo
-                    d={d}
-                    logued={props.logued}
-                    setplacesRecords={props.setplacesRecords}
-                  />
-                </Popup>
-              </Marker>
-            );
-          }
           if (props.checked.includes(d.categoria)) {
             return (
               <Marker position={[d.x, d.y]} key={d.nombre + i}>

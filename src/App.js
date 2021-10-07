@@ -48,13 +48,13 @@ function App() {
     fetch("https://shadow.devilskykid.com/Salto/category.php")
       .then((res) => res.json())
       .then((result) => {
-        console.log(JSON.stringify(result));
+        const resi = JSON.stringify(result);
         setcategoryRecords(result);
-        localStorage.setItem("categoryRecords", JSON.stringify(result));
+        localStorage.setItem("categoryRecords", resi);
         if (categorychecked) {
         } else {
           setChecked(result);
-          localStorage.setItem("categorychecked", JSON.stringify(result));
+          localStorage.setItem("categorychecked", resi);
         }
       });
   }, []);
