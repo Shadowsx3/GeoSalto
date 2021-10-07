@@ -24,6 +24,7 @@ const Adding = (props) => {
   const [formFields, setFormFields] = useState({
     Name: "",
     Descripcion: "",
+    Link: "",
   });
 
   const handleFormFields = (e) => {
@@ -35,9 +36,14 @@ const Adding = (props) => {
 
   const submitLogin = (e) => {
     e.preventDefault();
-    const { Name: NameValue, Descripcion: DescripcionValue } = formFields;
+    const {
+      Name: NameValue,
+      Descripcion: DescripcionValue,
+      Link: LinkValue,
+    } = formFields;
     let hasEmptyNameError = false;
     let hasEmptyDescripcionError = false;
+    let hasEmptyLinkError = false;
 
     if (NameValue.trim() === "") {
       hasEmptyNameError = true;
@@ -45,12 +51,17 @@ const Adding = (props) => {
     if (DescripcionValue.trim() === "") {
       hasEmptyDescripcionError = true;
     }
-    const hasErrors = hasEmptyNameError || hasEmptyDescripcionError;
+    if (LinkValue.trim() === "") {
+      hasEmptyLinkError = true;
+    }
+    const hasErrors =
+      hasEmptyNameError || hasEmptyDescripcionError || hasEmptyLinkError;
 
     if (hasErrors) {
       setFormFields({
         Name: formFields.Name,
         Descripcion: formFields.Descripcion,
+        Link: formFields.Link,
       });
       setCredentialsError(true);
     } else {
@@ -59,7 +70,7 @@ const Adding = (props) => {
         y: props.lugar.y,
         nombre: formFields.Name,
         descripcion: formFields.Descripcion,
-        link: "",
+        link: formFields.Link,
         categoria: selectedValue,
       };
       fetch("https://shadow.devilskykid.com/Salto/add.php", {
@@ -79,7 +90,11 @@ const Adding = (props) => {
       //props.lugar;
     }
   };
-  const { Name: NameValue, Descripcion: DescripcionValue } = formFields;
+  const {
+    Name: NameValue,
+    Descripcion: DescripcionValue,
+    Link: LinkValue,
+  } = formFields;
 
   return (
     <div>
@@ -113,18 +128,24 @@ const Adding = (props) => {
                     value={DescripcionValue}
                     required
                     onChange={handleFormFields}
-                    onKeyPress={(event) => {
-                      if (event.key === "Enter") {
-                        submitLogin(event);
-                      }
-                    }}
-                  />
-                  <Categoria
-                    categoryRecords={props.categoryRecords}
-                    selectedValue={selectedValue}
-                    setSelectedValue={setSelectedValue}
                   />
                 </div>
+                <div>
+                  <TextField
+                    id="Link"
+                    label="Link de foto"
+                    color="primary"
+                    variant="standard"
+                    value={LinkValue}
+                    required
+                    onChange={handleFormFields}
+                  />
+                </div>
+                <Categoria
+                  categoryRecords={props.categoryRecords}
+                  selectedValue={selectedValue}
+                  setSelectedValue={setSelectedValue}
+                />
                 <div className="login__button">
                   <Button
                     onClick={(e) => submitLogin(e)}
