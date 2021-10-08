@@ -87,14 +87,18 @@ const Home = (props) => {
           )}
         </Grid>
         <Grid item xs={2}>
-          <Clima />
+          {props.admin ? (
+            <Logueo
+              logued={props.logued}
+              setLogued={props.setLogued}
+              setEdit={setEdit}
+            />
+          ) : (
+            <></>
+          )}
         </Grid>
         <Grid item xs={2}>
-          <Logueo
-            logued={props.logued}
-            setLogued={props.setLogued}
-            setEdit={setEdit}
-          />
+          <Clima />
         </Grid>
       </Grid>
       <Divider variant="middle" style={{ marginBottom: 2 }} />

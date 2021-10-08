@@ -4,6 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { useMapEvents } from "react-leaflet";
 import {
   Grid,
   ListItemText,
@@ -13,6 +14,11 @@ import {
 } from "@mui/material";
 
 const Opciones = (prop) => {
+  useMapEvents({
+    click() {
+      handleClickOpen();
+    },
+  });
   const props = prop.props;
   const handleToggle = (value) => () => {
     const currentIndex = props.checked.indexOf(value);
@@ -62,14 +68,6 @@ const Opciones = (prop) => {
 
   return (
     <div>
-      <Button
-        onClick={handleClickOpen}
-        variant="contained"
-        fullWidth="true"
-        sx={{ m: 0, background: "#97a97c", height: "100%" }}
-      >
-        Categorias
-      </Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Categorias</DialogTitle>
         <DialogContent>
@@ -82,8 +80,8 @@ const Opciones = (prop) => {
           >
             {Array.from(Array(props.categoryRecords.length).keys()).map((d) => {
               return (
-                <Grid item xs>
-                  <Row index={d} />
+                <Grid item xs key={d}>
+                  <Row index={d} key={d} />
                 </Grid>
               );
             })}

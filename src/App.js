@@ -41,7 +41,6 @@ function App() {
     fetch("https://shadow.devilskykid.com/Salto/places.php")
       .then((res) => res.json())
       .then((result) => {
-        console.log(JSON.stringify(result));
         setplacesRecords(result);
         localStorage.setItem("placesRecords", JSON.stringify(result));
       });
@@ -75,15 +74,24 @@ function App() {
         <div className="app">
           <Switch>
             <Route path="/map">
-              <Mapa checked={checked} placesRecords={placesRecords} />
+              <Mapa checked={categoryRecords} placesRecords={placesRecords} />
+            </Route>
+            <Route path="/manage">
+              <Home
+                checked={checked}
+                setChecked={setChecked}
+                logued={logued}
+                setLogued={setLogued}
+                categoryRecords={categoryRecords}
+                placesRecords={placesRecords}
+                setplacesRecords={setplacesRecords}
+                admin={true}
+              />
             </Route>
             <Route path="/">
               {isDesktopOrLaptop && (
                 <Home
                   checked={checked}
-                  setChecked={setChecked}
-                  logued={logued}
-                  setLogued={setLogued}
                   categoryRecords={categoryRecords}
                   placesRecords={placesRecords}
                   setplacesRecords={setplacesRecords}

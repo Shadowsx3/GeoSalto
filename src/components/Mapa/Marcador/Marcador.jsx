@@ -11,13 +11,15 @@ const Marcador = (props) => {
   });
   useMapEvents({
     click(e) {
-      const { lat, lng } = e.latlng;
-      setNewMark({
-        x: lat,
-        y: lng,
-        active: true,
-      });
-      console.log(e.latlng);
+      if (props.edit) {
+        const { lat, lng } = e.latlng;
+        setNewMark({
+          x: lat,
+          y: lng,
+          active: true,
+        });
+        console.log(e.latlng);
+      }
     },
   });
   return (
@@ -26,12 +28,13 @@ const Marcador = (props) => {
         props.placesRecords.map((d, i) => {
           if (props.checked.includes(d.categoria)) {
             return (
-              <Marker position={[d.x, d.y]} key={d.nombre + i}>
-                <Popup>
+              <Marker position={[d.x, d.y]} key={"Marker" + d.nombre + i}>
+                <Popup key={"pop-up" + d.nombre}>
                   <Dialogo
                     d={d}
                     logued={props.logued}
                     setplacesRecords={props.setplacesRecords}
+                    key={"Dialogo" + d.nombre}
                   />
                 </Popup>
               </Marker>
@@ -44,7 +47,7 @@ const Marcador = (props) => {
           {() => {
             if (NewMark.active) {
               return (
-                <Marker position={[NewMark.x, NewMark.y]} key={"Hi"}>
+                <Marker position={[NewMark.x, NewMark.y]}>
                   <Popup>
                     <Adding
                       lugar={NewMark}

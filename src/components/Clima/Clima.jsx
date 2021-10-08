@@ -25,8 +25,7 @@ const Clima = () => {
       <Button
         variant="contained"
         onClick={handleClickOpen}
-        fullWidth
-        sx={{ background: "#97a97c" }}
+        sx={{ background: "#97a97c", width: "85%" }}
       >
         Tiempo en salto
       </Button>
