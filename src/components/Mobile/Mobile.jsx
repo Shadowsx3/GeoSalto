@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, AppBar, Paper, Divider } from "@mui/material";
+import { Paper } from "@mui/material";
 import Mapa from "../Mapa/Mapa";
 import "./Mobile.scss";
 
