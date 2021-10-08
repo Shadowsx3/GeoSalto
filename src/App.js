@@ -92,6 +92,7 @@ function App() {
               {isDesktopOrLaptop && (
                 <Home
                   checked={checked}
+                  setChecked={setChecked}
                   categoryRecords={categoryRecords}
                   placesRecords={placesRecords}
                   setplacesRecords={setplacesRecords}
